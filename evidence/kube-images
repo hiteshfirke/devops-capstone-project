@@ -1,0 +1,9 @@
+Name: accounts
+Tag: 1.0
+Image ID: 13c72c4c91ed
+Created: 2026-10-27 17:37:48 +0530 IST
+Size: 301MB
+
+$ docker images accounts
+IMAGE          ID             DISK USAGE   CONTENT SIZE   EXTRA
+accounts:1.0   13c72c4c91ed        301MB         64.9MB        

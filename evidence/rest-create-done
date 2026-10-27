@@ -1,0 +1,17 @@
+$ curl -i -X POST http://127.0.0.1:8080/accounts -H 'Content-Type: application/json' -d '{"name":"Ada Lovelace","email":"ada@example.com","address":"1 Main St","phone_number":"555-0100"}'
+HTTP/1.1 201 CREATED
+Server: gunicorn
+Date: Tue, 27 Oct 2026 12:05:01 GMT
+Connection: close
+Content-Type: application/json
+Content-Length: 105
+Location: /accounts/1
+Access-Control-Allow-Origin: *
+Permissions-Policy: browsing-topics=()
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Security-Policy: default-src 'self'; object-src 'none'
+Referrer-Policy: strict-origin-when-cross-origin
+
+{"address":"1 Main St","email":"ada@example.com","id":1,"name":"Ada Lovelace","phone_number":"555-0100"}
+
