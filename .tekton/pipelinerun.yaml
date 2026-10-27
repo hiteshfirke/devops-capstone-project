@@ -9,7 +9,7 @@ spec:
     serviceAccountName: pipeline-ci
   params:
     - name: repo-url
-      value: https://github.com/hiteshfirke/devops-capstone.git
+      value: https://github.com/hiteshfirke/devops-capstone-project.git
   workspaces:
     - name: ws
       persistentVolumeClaim:

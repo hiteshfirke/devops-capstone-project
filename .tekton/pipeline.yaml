@@ -60,10 +60,30 @@ spec:
     - name: repo-url
     - name: branch
       default: main
+    - name: build-image
+      default: registry.default.svc.cluster.local:5000/accounts:latest
   tasks:
-    - name: clone
+    - name: cleanup
       workspaces: [{name: ws, workspace: ws}]
       taskSpec:
+        workspaces: [{name: ws}]
+        steps:
+          - name: cleanup
+            image: alpine
+            script: |
+              set -eu
+              echo "Cleaning workspace $(workspaces.ws.path)"
+              rm -rf "$(workspaces.ws.path)"/* "$(workspaces.ws.path)"/.[!.]* 2>/dev/null || true
+              ls -A "$(workspaces.ws.path)" | wc -l
+              echo "Workspace cleaned"
+    - name: clone
+      runAfter: [cleanup]
+      workspaces: [{name: ws, workspace: ws}]
+      params:
+        - {name: repo-url, value: $(params.repo-url)}
+        - {name: branch, value: $(params.branch)}
+      taskSpec:
+        params: [{name: repo-url}, {name: branch}]
         workspaces: [{name: ws}]
         steps:
           - name: clone
@@ -75,9 +95,7 @@ spec:
                 value: $(params.branch)
             script: |
               set -eu
-              rm -rf "$(workspaces.ws.path)/src"
               git clone -b "$BRANCH" -- "$REPO_URL" "$(workspaces.ws.path)/src"
-      params: [{name: repo-url, value: $(params.repo-url)}, {name: branch, value: $(params.branch)}]
     - name: lint
       runAfter: [clone]
       workspaces: [{name: ws, workspace: ws}]
@@ -85,10 +103,10 @@ spec:
         workspaces: [{name: ws}]
         steps:
           - name: flake8
-            image: python:3.12-slim
+            image: python:3.9-slim
             workingDir: $(workspaces.ws.path)/src
             script: |
-              pip install -q flake8
+              pip install -q --root-user-action=ignore flake8
               flake8 service --count --max-complexity=10 --max-line-length=127 --statistics
     - name: tests
       runAfter: [lint]
@@ -97,13 +115,29 @@ spec:
         workspaces: [{name: ws}]
         steps:
           - name: nosetests
-            image: python:3.12-slim
+            image: python:3.9-slim
             workingDir: $(workspaces.ws.path)/src
             script: |
-              pip install -q -r requirements.txt
+              pip install -q --root-user-action=ignore -r requirements-dev.txt
               nosetests
-    - name: deploy
+    - name: build
       runAfter: [tests]
+      workspaces: [{name: ws, workspace: ws}]
+      params: [{name: build-image, value: $(params.build-image)}]
+      taskSpec:
+        params: [{name: build-image}]
+        workspaces: [{name: ws}]
+        steps:
+          - name: build-and-push
+            image: gcr.io/kaniko-project/executor:latest
+            args:
+              - --context=$(workspaces.ws.path)/src
+              - --dockerfile=$(workspaces.ws.path)/src/Dockerfile
+              - --destination=$(params.build-image)
+              - --insecure
+              - --skip-tls-verify
+    - name: deploy
+      runAfter: [build]
       workspaces: [{name: ws, workspace: ws}]
       taskSpec:
         workspaces: [{name: ws}]
@@ -114,4 +148,4 @@ spec:
             script: |
               kubectl apply -f k8s/deployment.yaml
               kubectl rollout restart deployment/accounts
-              kubectl rollout status deployment/accounts --timeout=120s
+              kubectl rollout status deployment/accounts --timeout=180s

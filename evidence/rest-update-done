@@ -1,7 +1,7 @@
-$ curl -i -X PUT http://127.0.0.1:8080/accounts/1 -H 'Content-Type: application/json' -d '{"name":"Ada King","email":"ada@example.com","address":"2 Oak Ave","phone_number":"555-0199"}'
+$ curl -i -X PUT http://127.0.0.1:5000/accounts/1 -H "Content-Type: application/json" -d '{"name":"John Doe","email":"john@doe.com","address":"456 Oak Ave.","phone_number":"555-1212"}'
 HTTP/1.1 200 OK
 Server: gunicorn
-Date: Tue, 27 Oct 2026 12:05:02 GMT
+Date: Tue, 27 Oct 2026 13:05:01 GMT
 Connection: close
 Content-Type: application/json
 Content-Length: 101
@@ -12,5 +12,5 @@ X-Content-Type-Options: nosniff
 Content-Security-Policy: default-src 'self'; object-src 'none'
 Referrer-Policy: strict-origin-when-cross-origin
 
-{"address":"2 Oak Ave","email":"ada@example.com","id":1,"name":"Ada King","phone_number":"555-0199"}
+{"address":"456 Oak Ave.","email":"john@doe.com","id":1,"name":"John Doe","phone_number":"555-1212"}
 

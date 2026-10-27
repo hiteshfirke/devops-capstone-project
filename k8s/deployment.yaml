@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: accounts
-          image: accounts:1.0
-          imagePullPolicy: IfNotPresent
+          image: localhost:30500/accounts:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
 ---

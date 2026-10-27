@@ -1,10 +1,10 @@
-$ curl -i -X GET http://127.0.0.1:8080/accounts
+$ curl -i -X GET http://127.0.0.1:5000/accounts
 HTTP/1.1 200 OK
 Server: gunicorn
-Date: Tue, 27 Oct 2026 12:05:02 GMT
+Date: Tue, 27 Oct 2026 13:05:01 GMT
 Connection: close
 Content-Type: application/json
-Content-Length: 107
+Content-Length: 103
 Access-Control-Allow-Origin: *
 Permissions-Policy: browsing-topics=()
 X-Frame-Options: SAMEORIGIN
@@ -12,5 +12,5 @@ X-Content-Type-Options: nosniff
 Content-Security-Policy: default-src 'self'; object-src 'none'
 Referrer-Policy: strict-origin-when-cross-origin
 
-[{"address":"1 Main St","email":"ada@example.com","id":1,"name":"Ada Lovelace","phone_number":"555-0100"}]
+[{"address":"123 Main St.","email":"john@doe.com","id":1,"name":"John Doe","phone_number":"555-1212"}]
 
