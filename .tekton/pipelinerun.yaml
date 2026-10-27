@@ -6,7 +6,7 @@ spec:
   pipelineRef:
     name: cd-pipeline
   taskRunTemplate:
-    serviceAccountName: pipeline
+    serviceAccountName: pipeline-ci
   params:
     - name: repo-url
       value: https://github.com/hiteshfirke/devops-capstone.git
@@ -14,3 +14,6 @@ spec:
     - name: ws
       persistentVolumeClaim:
         claimName: pipeline-pvc
+  taskRunSpecs:
+    - pipelineTaskName: deploy
+      serviceAccountName: pipeline

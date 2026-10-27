@@ -32,7 +32,7 @@
 [tests : nosetests] ---------------------------------------------------
 [tests : nosetests] TOTAL                    83      0   100%
 [tests : nosetests] ----------------------------------------
-[tests : nosetests] Ran 12 tests in 0.574s
+[tests : nosetests] Ran 12 tests in 0.544s
 [tests : nosetests] 
 [tests : nosetests] OK
 

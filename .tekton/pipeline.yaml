@@ -14,16 +14,40 @@ metadata:
   name: pipeline
 ---
 apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pipeline-deployer
+  namespace: default
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
+  - apiGroups: ["apps"]
+    resources: ["replicasets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["services"]
+    verbs: ["get", "list", "create", "update", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: pipeline-edit
+  name: pipeline-deployer
+  namespace: default
 subjects:
   - kind: ServiceAccount
     name: pipeline
+    namespace: default
 roleRef:
-  kind: ClusterRole
-  name: edit
+  kind: Role
+  name: pipeline-deployer
   apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pipeline-ci
+automountServiceAccountToken: false
 ---
 apiVersion: tekton.dev/v1
 kind: Pipeline
@@ -44,9 +68,15 @@ spec:
         steps:
           - name: clone
             image: alpine/git
+            env:
+              - name: REPO_URL
+                value: $(params.repo-url)
+              - name: BRANCH
+                value: $(params.branch)
             script: |
-              rm -rf $(workspaces.ws.path)/src
-              git clone -b $(params.branch) $(params.repo-url) $(workspaces.ws.path)/src
+              set -eu
+              rm -rf "$(workspaces.ws.path)/src"
+              git clone -b "$BRANCH" -- "$REPO_URL" "$(workspaces.ws.path)/src"
       params: [{name: repo-url, value: $(params.repo-url)}, {name: branch, value: $(params.branch)}]
     - name: lint
       runAfter: [clone]
