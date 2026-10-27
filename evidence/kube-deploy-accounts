@@ -1,0 +1,13 @@
+$ kubectl get deployments,pods,replicasets,services
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES         SELECTOR
+deployment.apps/accounts   1/1     1            1           27s   accounts     accounts:1.0   app=accounts
+
+NAME                            READY   STATUS    RESTARTS   AGE   IP           NODE                     NOMINATED NODE   READINESS GATES
+pod/accounts-7bc8979954-pmfpn   1/1     Running   0          24s   10.244.0.3   capstone-control-plane   <none>           <none>
+
+NAME                                  DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES         SELECTOR
+replicaset.apps/accounts-7bc8979954   1         1         1       25s   accounts     accounts:1.0   app=accounts,pod-template-hash=7bc8979954
+
+NAME                 TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE   SELECTOR
+service/accounts     ClusterIP   10.96.63.86   <none>        8080/TCP   27s   app=accounts
+service/kubernetes   ClusterIP   10.96.0.1     <none>        443/TCP    33s   <none>
