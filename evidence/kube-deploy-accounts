@@ -1,13 +1,16 @@
-$ kubectl get deployments,pods,replicasets,services
-NAME                       READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES         SELECTOR
-deployment.apps/accounts   1/1     1            1           27s   accounts     accounts:1.0   app=accounts
+$ kubectl get deployment accounts -o wide
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                            SELECTOR
+accounts   1/1     1            1           55m   accounts     localhost:30500/accounts:latest   app=accounts
 
-NAME                            READY   STATUS    RESTARTS   AGE   IP           NODE                     NOMINATED NODE   READINESS GATES
-pod/accounts-7bc8979954-pmfpn   1/1     Running   0          24s   10.244.0.3   capstone-control-plane   <none>           <none>
+$ kubectl get pods,replicasets -l app=accounts -o wide
+NAME                            READY   STATUS    RESTARTS   AGE   IP            NODE                     NOMINATED NODE   READINESS GATES
+pod/accounts-66b874fd6d-c864p   1/1     Running   0          62s   10.244.0.31   capstone-control-plane   <none>           <none>
 
-NAME                                  DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES         SELECTOR
-replicaset.apps/accounts-7bc8979954   1         1         1       25s   accounts     accounts:1.0   app=accounts,pod-template-hash=7bc8979954
+NAME                                  DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                            SELECTOR
+replicaset.apps/accounts-59f5699879   0         0         0       47m   accounts     accounts:1.0                      app=accounts,pod-template-hash=59f5699879
+replicaset.apps/accounts-66b874fd6d   1         1         1       62s   accounts     localhost:30500/accounts:latest   app=accounts,pod-template-hash=66b874fd6d
+replicaset.apps/accounts-6fc48f5c66   0         0         0       50m   accounts     accounts:1.0                      app=accounts,pod-template-hash=6fc48f5c66
+replicaset.apps/accounts-796d4b4ccf   0         0         0       62s   accounts     localhost:30500/accounts:latest   app=accounts,pod-template-hash=796d4b4ccf
+replicaset.apps/accounts-7bc8979954   0         0         0       55m   accounts     accounts:1.0                      app=accounts,pod-template-hash=7bc8979954
 
-NAME                 TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE   SELECTOR
-service/accounts     ClusterIP   10.96.63.86   <none>        8080/TCP   27s   app=accounts
-service/kubernetes   ClusterIP   10.96.0.1     <none>        443/TCP    33s   <none>
+$ kubectl get service accounts -o wide
