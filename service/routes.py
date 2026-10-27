@@ -41,8 +41,13 @@ def list_accounts():
 @app.route("/accounts", methods=["DELETE"])
 def delete_matching_accounts():
     """Delete the account(s) matching the e-mail in the JSON body"""
-    data = request.get_json(silent=True) or {}
-    for account in Account.query.filter(Account.email == data.get("email")).all():
+    bad_type = check_content_type("application/json")
+    if bad_type:
+        return bad_type
+    email = (request.get_json(silent=True) or {}).get("email")
+    if not email:
+        return jsonify(error="email is required"), 400
+    for account in Account.query.filter(Account.email == email).all():
         account.delete()
     return "", 204
 

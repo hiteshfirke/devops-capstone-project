@@ -1,42 +1,158 @@
+[cleanup : cleanup] Cleaning workspace /workspace/ws
+[cleanup : cleanup] 0
+[cleanup : cleanup] Workspace cleaned
+
 [clone : clone] Cloning into '/workspace/ws/src'...
 
-[lint : flake8] WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
 [lint : flake8] 
-[lint : flake8] [notice] A new release of pip is available: 25.0.1 -> 26.2.2
+[lint : flake8] [notice] A new release of pip is available: 23.0.1 -> 26.0.1
 [lint : flake8] [notice] To update, run: pip install --upgrade pip
 [lint : flake8] 0
 
-[tests : nosetests] WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
 [tests : nosetests] 
-[tests : nosetests] [notice] A new release of pip is available: 25.0.1 -> 26.2.2
+[tests : nosetests] [notice] A new release of pip is available: 23.0.1 -> 26.0.1
 [tests : nosetests] [notice] To update, run: pip install --upgrade pip
-[tests : nosetests] test_cors_header (tests.test_routes.TestAccountService.test_cors_header) ... ok
-[tests : nosetests] test_create_account (tests.test_routes.TestAccountService.test_create_account) ... ok
-[tests : nosetests] test_create_bad_payload (tests.test_routes.TestAccountService.test_create_bad_payload) ... ok
-[tests : nosetests] test_delete_account (tests.test_routes.TestAccountService.test_delete_account) ... ok
-[tests : nosetests] test_index (tests.test_routes.TestAccountService.test_index) ... ok
-[tests : nosetests] test_list_accounts (tests.test_routes.TestAccountService.test_list_accounts) ... ok
-[tests : nosetests] test_read_account (tests.test_routes.TestAccountService.test_read_account) ... ok
-[tests : nosetests] test_read_not_found (tests.test_routes.TestAccountService.test_read_not_found) ... ok
-[tests : nosetests] test_security_headers (tests.test_routes.TestAccountService.test_security_headers) ... ok
-[tests : nosetests] test_update_account (tests.test_routes.TestAccountService.test_update_account) ... ok
-[tests : nosetests] test_update_bad_payload (tests.test_routes.TestAccountService.test_update_bad_payload) ... ok
-[tests : nosetests] test_update_not_found (tests.test_routes.TestAccountService.test_update_not_found) ... ok
+[tests : nosetests] 
+[tests : nosetests] Test Cases for Account Model
+[tests : nosetests] - It should Create an account and add it to the database
+[tests : nosetests] - It should Create an Account and assert that it exists
+[tests : nosetests] - It should Delete an account from the database
+[tests : nosetests] - It should Deserialize an account
+[tests : nosetests] - It should not Deserialize an account with a KeyError
+[tests : nosetests] - It should not Deserialize an account with a TypeError
+[tests : nosetests] - It should Find an Account by name
+[tests : nosetests] - It should List all Accounts in the database
+[tests : nosetests] - It should Read an account
+[tests : nosetests] - It should Serialize an account
+[tests : nosetests] - It should Update an account
+[tests : nosetests] - It should not Update an account with no id
+[tests : nosetests] 
+[tests : nosetests] Account Service Tests
+[tests : nosetests] - It should return a CORS header
+[tests : nosetests] - It should Create a new Account
+[tests : nosetests] - It should not Create an Account when sending the wrong data
+[tests : nosetests] - It should not Create an Account when sending the wrong media type
+[tests : nosetests] - It should Delete an Account
+[tests : nosetests] - It should Delete an Account matching the e-mail in the request body
+[tests : nosetests] - It should be healthy
+[tests : nosetests] - It should get 200_OK from the Home Page
+[tests : nosetests] - It should Get a list of Accounts
+[tests : nosetests] - It should not allow an illegal method call
+[tests : nosetests] - It should Read a single Account
+[tests : nosetests] - It should not Read an Account that is not found
+[tests : nosetests] - It should return security headers
+[tests : nosetests] - It should Update an existing Account
+[tests : nosetests] - It should not Update an Account that is not found
 [tests : nosetests] 
 [tests : nosetests] Name                  Stmts   Miss  Cover   Missing
 [tests : nosetests] ---------------------------------------------------
-[tests : nosetests] service/__init__.py      17      0   100%
+[tests : nosetests] service/__init__.py      13      0   100%
 [tests : nosetests] service/config.py         4      0   100%
-[tests : nosetests] service/models.py        19      0   100%
-[tests : nosetests] service/routes.py        43      0   100%
+[tests : nosetests] service/models.py        43      1    98%   19
+[tests : nosetests] service/routes.py        62      3    95%   65, 68-69
 [tests : nosetests] ---------------------------------------------------
-[tests : nosetests] TOTAL                    83      0   100%
+[tests : nosetests] TOTAL                   122      4    97%
 [tests : nosetests] ----------------------------------------
-[tests : nosetests] Ran 12 tests in 0.544s
+[tests : nosetests] Ran 27 tests in 0.362s
 [tests : nosetests] 
 [tests : nosetests] OK
+[tests : nosetests] 
 
-[deploy : apply] deployment.apps/accounts unchanged
+[build : build-and-push] [36mINFO[0m[0000] Using dockerignore file: /workspace/ws/src/.dockerignore 
+[build : build-and-push] [36mINFO[0m[0000] Retrieving image manifest python:3.9-slim    
+[build : build-and-push] [36mINFO[0m[0000] Retrieving image python:3.9-slim from registry index.docker.io 
+[build : build-and-push] [36mINFO[0m[0002] Built cross stage deps: map[]                
+[build : build-and-push] [36mINFO[0m[0002] Retrieving image manifest python:3.9-slim    
+[build : build-and-push] [36mINFO[0m[0002] Returning cached image manifest              
+[build : build-and-push] [36mINFO[0m[0002] Executing 0 build triggers                   
+[build : build-and-push] [36mINFO[0m[0002] Building stage 'python:3.9-slim' [idx: '0', base-idx: '-1'] 
+[build : build-and-push] [36mINFO[0m[0002] Unpacking rootfs as cmd COPY requirements.txt . requires it. 
+[build : build-and-push] [36mINFO[0m[0008] WORKDIR /app                                 
+[build : build-and-push] [36mINFO[0m[0008] Cmd: workdir                                 
+[build : build-and-push] [36mINFO[0m[0008] Changed working directory to /app            
+[build : build-and-push] [36mINFO[0m[0008] Creating directory /app with uid -1 and gid -1 
+[build : build-and-push] [36mINFO[0m[0008] Taking snapshot of files...                  
+[build : build-and-push] [36mINFO[0m[0008] COPY requirements.txt .                      
+[build : build-and-push] [36mINFO[0m[0008] Taking snapshot of files...                  
+[build : build-and-push] [36mINFO[0m[0008] RUN pip install --no-cache-dir -r requirements.txt 
+[build : build-and-push] [36mINFO[0m[0008] Initializing snapshotter ...                 
+[build : build-and-push] [36mINFO[0m[0008] Taking snapshot of full filesystem...        
+[build : build-and-push] [36mINFO[0m[0008] Cmd: /bin/sh                                 
+[build : build-and-push] [36mINFO[0m[0008] Args: [-c pip install --no-cache-dir -r requirements.txt] 
+[build : build-and-push] [36mINFO[0m[0008] Running: [/bin/sh -c pip install --no-cache-dir -r requirements.txt] 
+[build : build-and-push] Collecting Flask==3.1.3
+[build : build-and-push]   Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+[build : build-and-push]      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 103.4/103.4 kB 5.6 MB/s eta 0:00:00
+[build : build-and-push] Collecting Flask-SQLAlchemy==3.1.1
+[build : build-and-push]   Downloading flask_sqlalchemy-3.1.1-py3-none-any.whl (25 kB)
+[build : build-and-push] Collecting Flask-Talisman==1.1.0
+[build : build-and-push]   Downloading flask_talisman-1.1.0-py2.py3-none-any.whl (18 kB)
+[build : build-and-push] Collecting Flask-Cors==6.0.5
+[build : build-and-push]   Downloading flask_cors-6.0.5-py3-none-any.whl (16 kB)
+[build : build-and-push] Collecting gunicorn==23.0.0
+[build : build-and-push]   Downloading gunicorn-23.0.0-py3-none-any.whl (85 kB)
+[build : build-and-push]      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 85.0/85.0 kB 13.0 MB/s eta 0:00:00
+[build : build-and-push] Collecting psycopg2-binary>=2.9.9
+[build : build-and-push]   Downloading psycopg2_binary-2.9.12-cp39-cp39-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl (5.9 MB)
+[build : build-and-push]      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.9/5.9 MB 10.7 MB/s eta 0:00:00
+[build : build-and-push] Collecting click>=8.1.3
+[build : build-and-push]   Downloading click-8.1.8-py3-none-any.whl (98 kB)
+[build : build-and-push]      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.2/98.2 kB 11.2 MB/s eta 0:00:00
+[build : build-and-push] Collecting blinker>=1.9.0
+[build : build-and-push]   Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+[build : build-and-push] Collecting importlib-metadata>=3.6.0
+[build : build-and-push]   Downloading importlib_metadata-8.7.1-py3-none-any.whl (27 kB)
+[build : build-and-push] Collecting werkzeug>=3.1.0
+[build : build-and-push]   Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+[build : build-and-push]      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 228.7/228.7 kB 10.5 MB/s eta 0:00:00
+[build : build-and-push] Collecting markupsafe>=2.1.1
+[build : build-and-push]   Downloading markupsafe-3.0.4-cp39-cp39-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (21 kB)
+[build : build-and-push] Collecting itsdangerous>=2.2.0
+[build : build-and-push]   Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+[build : build-and-push] Collecting jinja2>=3.1.2
+[build : build-and-push]   Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+[build : build-and-push]      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.9/134.9 kB 13.8 MB/s eta 0:00:00
+[build : build-and-push] Collecting sqlalchemy>=2.0.16
+[build : build-and-push]   Downloading sqlalchemy-2.0.55-cp39-cp39-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl (3.4 MB)
+[build : build-and-push]      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.4/3.4 MB 10.7 MB/s eta 0:00:00
+[build : build-and-push] Collecting typing_extensions>=4.6.0
+[build : build-and-push]   Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+[build : build-and-push]      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 45.6/45.6 kB 4.6 MB/s eta 0:00:00
+[build : build-and-push] Collecting packaging
+[build : build-and-push]   Downloading packaging-26.3-py3-none-any.whl (129 kB)
+[build : build-and-push]      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 130.0/130.0 kB 22.6 MB/s eta 0:00:00
+[build : build-and-push] Collecting zipp>=3.20
+[build : build-and-push]   Downloading zipp-3.23.1-py3-none-any.whl (10 kB)
+[build : build-and-push] Collecting greenlet>=1
+[build : build-and-push]   Downloading greenlet-3.2.5-cp39-cp39-manylinux2014_aarch64.manylinux_2_17_aarch64.whl (631 kB)
+[build : build-and-push]      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 631.8/631.8 kB 10.6 MB/s eta 0:00:00
+[build : build-and-push] Installing collected packages: Flask-Talisman, zipp, typing_extensions, psycopg2-binary, packaging, markupsafe, itsdangerous, greenlet, click, blinker, werkzeug, sqlalchemy, jinja2, importlib-metadata, gunicorn, Flask, Flask-SQLAlchemy, Flask-Cors
+[build : build-and-push] Successfully installed Flask-3.1.3 Flask-Cors-6.0.5 Flask-SQLAlchemy-3.1.1 Flask-Talisman-1.1.0 blinker-1.9.0 click-8.1.8 greenlet-3.2.5 gunicorn-23.0.0 importlib-metadata-8.7.1 itsdangerous-2.2.0 jinja2-3.1.6 markupsafe-3.0.4 packaging-26.3 psycopg2-binary-2.9.12 sqlalchemy-2.0.55 typing_extensions-4.16.0 werkzeug-3.1.9 zipp-3.23.1
+[build : build-and-push] WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+[build : build-and-push] 
+[build : build-and-push] [notice] A new release of pip is available: 23.0.1 -> 26.0.1
+[build : build-and-push] [notice] To update, run: pip install --upgrade pip
+[build : build-and-push] [36mINFO[0m[0014] Taking snapshot of full filesystem...        
+[build : build-and-push] [36mINFO[0m[0015] COPY service/ ./service/                     
+[build : build-and-push] [36mINFO[0m[0015] Taking snapshot of files...                  
+[build : build-and-push] [36mINFO[0m[0015] COPY wsgi.py .                               
+[build : build-and-push] [36mINFO[0m[0015] Taking snapshot of files...                  
+[build : build-and-push] [36mINFO[0m[0015] RUN useradd --uid 1000 theia && chown -R theia /app 
+[build : build-and-push] [36mINFO[0m[0015] Cmd: /bin/sh                                 
+[build : build-and-push] [36mINFO[0m[0015] Args: [-c useradd --uid 1000 theia && chown -R theia /app] 
+[build : build-and-push] [36mINFO[0m[0015] Running: [/bin/sh -c useradd --uid 1000 theia && chown -R theia /app] 
+[build : build-and-push] [36mINFO[0m[0015] Taking snapshot of full filesystem...        
+[build : build-and-push] [36mINFO[0m[0015] USER theia                                   
+[build : build-and-push] [36mINFO[0m[0015] Cmd: USER                                    
+[build : build-and-push] [36mINFO[0m[0015] ENV PORT=8080                                
+[build : build-and-push] [36mINFO[0m[0015] EXPOSE 8080                                  
+[build : build-and-push] [36mINFO[0m[0015] Cmd: EXPOSE                                  
+[build : build-and-push] [36mINFO[0m[0015] Adding exposed port: 8080/tcp                
+[build : build-and-push] [36mINFO[0m[0015] CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT} --log-level=info wsgi:app"] 
+[build : build-and-push] [36mINFO[0m[0015] Pushing image to registry.default.svc.cluster.local:5000/accounts:latest 
+[build : build-and-push] [36mINFO[0m[0020] Pushed registry.default.svc.cluster.local:5000/accounts@sha256:f62e8f816c1924e116b9763e6a17ead7c9d314384b3bb78428c03562fd5ea925 
+
+[deploy : apply] deployment.apps/accounts configured
 [deploy : apply] service/accounts unchanged
 [deploy : apply] deployment.apps/accounts restarted
 [deploy : apply] Waiting for deployment "accounts" rollout to finish: 1 old replicas are pending termination...

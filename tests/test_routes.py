@@ -55,6 +55,12 @@ class TestAccountService(TestCase):
         self.assertEqual(self.client.delete(BASE, json=DATA).status_code, 204)
         self.assertEqual(Account.all(), [])
 
+    def test_delete_accounts_requires_email(self):
+        """It should not Delete accounts when the request body has no e-mail"""
+        self._make()
+        self.assertEqual(self.client.delete(BASE, json={}).status_code, 400)
+        self.assertEqual(len(Account.all()), 1)
+
     def test_read_account(self):
         """It should Read a single Account"""
         aid = self._make().get_json()["id"]

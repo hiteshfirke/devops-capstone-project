@@ -7,3 +7,40 @@ Test Cases for Account Model
 - It should not Deserialize an account with a KeyError
 - It should not Deserialize an account with a TypeError
 - It should Find an Account by name
+- It should List all Accounts in the database
+- It should Read an account
+- It should Serialize an account
+- It should Update an account
+- It should not Update an account with no id
+
+Account Service Tests
+- It should return a CORS header
+- It should Create a new Account
+- It should not Create an Account when sending the wrong data
+- It should not Create an Account when sending the wrong media type
+- It should Delete an Account
+- It should Delete an Account matching the e-mail in the request body
+- It should not Delete accounts when the request body has no e-mail
+- It should be healthy
+- It should get 200_OK from the Home Page
+- It should Get a list of Accounts
+- It should not allow an illegal method call
+- It should Read a single Account
+- It should not Read an Account that is not found
+- It should return security headers
+- It should Update an existing Account
+- It should not Update an Account that is not found
+
+Name                  Stmts   Miss  Cover   Missing
+---------------------------------------------------
+service/__init__.py      13      0   100%
+service/config.py         4      0   100%
+service/models.py        43      1    98%   19
+service/routes.py        67      4    94%   46, 70, 73-74
+---------------------------------------------------
+TOTAL                   127      5    96%
+----------------------------------------
+Ran 28 tests in 0.308s
+
+OK
+
