@@ -1,3 +1,1 @@
-from service import create_app
-
-app = create_app()
+from service import app  # noqa: F401  pylint: disable=unused-import

@@ -1,23 +1,21 @@
-"""Accounts service: Flask app factory with Talisman security headers and CORS"""
+"""Accounts service: Flask app with Talisman security headers and CORS"""
 from flask import Flask
 from flask_cors import CORS
 from flask_talisman import Talisman
-from flask_sqlalchemy import SQLAlchemy
+from service import config
+from service.models import db
 
-db = SQLAlchemy()
-talisman = Talisman()
+app = Flask(__name__)
+app.config.from_object(config)
 
+# Security headers (CSP, X-Frame-Options, ...) and CORS policies
+talisman = Talisman(app, force_https=False)
+CORS(app)
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object("service.config")
+db.init_app(app)
 
-    db.init_app(app)
-    talisman.init_app(app, force_https=False)
-    CORS(app)
+# routes must be imported after the app is created
+from service import routes  # noqa: E402,F401  pylint: disable=wrong-import-position,cyclic-import
 
-    with app.app_context():
-        from service import routes  # noqa: F401  pylint: disable=import-outside-toplevel
-        app.register_blueprint(routes.bp)
-        db.create_all()
-    return app
+with app.app_context():
+    db.create_all()

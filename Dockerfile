@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM python:3.9-slim
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY service/ ./service/
 COPY wsgi.py .
 
-RUN useradd --uid 1001 theia && chown -R theia /app
+RUN useradd --uid 1000 theia && chown -R theia /app
 USER theia
 
 ENV PORT=8080

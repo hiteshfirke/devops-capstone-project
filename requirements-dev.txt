@@ -1,0 +1,6 @@
+-r requirements.txt
+pynose>=1.5
+pinocchio==0.5.1
+coverage>=7.4
+flake8>=7.1
+pylint>=3.2

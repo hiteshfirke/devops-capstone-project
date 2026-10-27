@@ -1,6 +1,8 @@
-# Accounts Service (DevOps Capstone)
+# DevOps Capstone Project
 
-![Build Status](https://github.com/hiteshfirke/devops-capstone/actions/workflows/ci-build.yaml/badge.svg)
+Accounts Service
+
+![Build Status](https://github.com/hiteshfirke/devops-capstone-project/actions/workflows/ci-build.yaml/badge.svg)
 
 Accounts REST API microservice: Flask, SQLAlchemy, Talisman security headers, CORS,
 Docker, Kubernetes and a Tekton CD pipeline.
@@ -17,7 +19,7 @@ Docker, Kubernetes and a Tekton CD pipeline.
 ## Develop
 ```
 python -m venv .venv && . .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 nosetests
 flake8 service
 ```
